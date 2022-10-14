@@ -18,7 +18,6 @@ SubCommands :<br>
 > usage : ".echo reverse text"
 > Aliases : [".echo backwards text"]
 
-<h2> Creation timeline </h2>
-<h3> October 12, 2022:  </h3>
+<h3> I will keep this challenge in mind, but I don't have any ideas for the competition, but it was nice finding a new library I like!</h3>
 
 > Created base bot, figured out how to make commands, made creation of commands modular and the adding of them automated.

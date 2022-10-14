@@ -1,11 +1,13 @@
 //* Importing modules
 const axios = require("axios");
+const { EmbedBuilder } = require("../../../util/EmbedBuilder");
 
 //* Setting up the command
 module.exports = {
     setup: async function (bot) {
-        bot.registerCommand("animeemes", async (msg, args) => {
+        bot.registerCommand("animememes", async (msg, args) => {
             try {
+                const message = await msg.channel.createMessage("Please wait, the bot is loading!");
                 const { data } = await axios.get('https://www.reddit.com/r/animeMemes.json?sort=top&t=week');
 
                 if (!data) return "Failed to get data from reddit!";
@@ -18,21 +20,17 @@ module.exports = {
 
                 while (!allowed[randomNumber].data.url && !allowed[randomNumber].data.url.includes(".jpg") && !allowed[randomNumber].data.url.includes(".png") && !allowed[randomNumber].data.url.includes(".gif")) { randomNumber = Math.floor(Math.random() * allowed.length); }
 
-                const embed = {
-                    title: allowed[randomNumber].data.title,
-                    description: "Posted by : " + allowed[randomNumber].data.author,
-                    image: {
-                        url: allowed[randomNumber].data.url
-                    },
-                    fields: [
-                        {
-                            name: "Other info", value: "Up votes : " + allowed[randomNumber].data.ups + " / Comments : " + allowed[randomNumber].data.num_comments
-                        }
-                    ],
-                    footer: { url: "Post link : www.reddit.com" + allowed[randomNumber].data.permalink }
-                }
+                //* Testing the embed builder
+                const embedBuilder = new EmbedBuilder();
+                // embedBuilder.setTitle(allowed[randomNumber].data.title);
+                embedBuilder.setAuthor(allowed[randomNumber].data.title, "https://www.reddit.com" + allowed[randomNumber].data.permalink)
+                embedBuilder.setDescription("Posted by : " + allowed[randomNumber].data.author);
+                embedBuilder.setImage(allowed[randomNumber].data.url);
+                embedBuilder.addField("Other info", "Up votes : " + allowed[randomNumber].data.ups + " / Comments : " + allowed[randomNumber].data.num_comments);
 
-                return { embeds: [embed], content: "Hello!" };
+                const embed = embedBuilder.returnEmbed();
+                message.delete();
+                return { embeds: [embed], content: allowed[randomNumber].data.title };
             } catch (err) {
                 console.error(err);
 
