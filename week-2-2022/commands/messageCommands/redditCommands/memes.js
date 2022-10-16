@@ -1,6 +1,6 @@
 //* Importing modules
 const axios = require("axios");
-const { EmbedBuilder } = require("../../../util/EmbedBuilder");
+const shiro = require("shirojs");
 
 //* Setting up the command
 module.exports = {
@@ -22,16 +22,21 @@ module.exports = {
                 )) { randomNumber = Math.floor(Math.random() * allowed.length); }
 
                 //* Testing the embed builder
-                const embedBuilder = new EmbedBuilder();
+                const embedBuilder = new shiro.MessageEmbed();
                 // embedBuilder.setTitle(allowed[randomNumber].data.title);
                 embedBuilder.setAuthor(allowed[randomNumber].data.title, "https://www.reddit.com" + allowed[randomNumber].data.permalink)
                 embedBuilder.setDescription("Posted by : " + allowed[randomNumber].data.author);
-                embedBuilder.setImage(allowed[randomNumber].data.url);
+                if (!allowed[randomNumber].data.url.includes("v.redd.it") && !allowed[randomNumber].data.url.includes(".gifv")) {
+                    embedBuilder.setImage(allowed[randomNumber].data.url);
+                }
                 embedBuilder.addField("Other info", "Up votes : " + allowed[randomNumber].data.ups + " / Comments : " + allowed[randomNumber].data.num_comments);
 
                 const embed = embedBuilder.returnEmbed();
                 message.delete();
-                return { embeds: [embed], content: allowed[randomNumber].data.title };
+                msg.channel.createMessage({ embeds: [embed], content: allowed[randomNumber].data.title });
+                if (allowed[randomNumber].data.url.includes("v.redd.it") || allowed[randomNumber].data.url.includes(".gifv")) {
+                    return allowed[randomNumber].data.url;
+                }
             } catch (err) {
                 console.error(err);
 

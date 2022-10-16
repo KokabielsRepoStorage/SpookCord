@@ -4,11 +4,14 @@
         "boxen": "^7.0.0",
         "chalk": "^3.0.0",
         "dotenv": "^16.0.3",
-        "eris": "^0.17.1",
         "glob": "^8.0.3",
+        "shirojs": "^0.8.4",
         "terminal-kit": "^3.0.0"
     },
     "scripts": {
-        "discord": "node ./week-2-2022"
-    }
+        "discord": "nodemon ./week-2-2022"
+    },
+    "name": "spookcord-2022",
+    "github": "https://github.com/Suzzudev/SpookCord",
+    "author": "Shiro/Suzzdev"
 }

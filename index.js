@@ -23,7 +23,7 @@ terminal.terminal.gridMenu([
             console.log(message.toString());
         })
 
-        console.log(chalk.red("If you want to see console output, then run npm run discord, instead of node ."))
+        console.log(chalk.red("If you want to see console output, then run npm run discord, instead of node .\n\nI tried using exec to run the bot afterwards, but I cant run 2 commands at once."));
 
         if (process.platform === "win32") {
             var rl = require("readline").createInterface({
