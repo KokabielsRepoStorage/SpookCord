@@ -5,13 +5,13 @@
         "chalk": "^3.0.0",
         "dotenv": "^16.0.3",
         "glob": "^8.0.3",
-        "shirojs": "^0.8.4",
+        "shirojs": "^0.8.43",
         "terminal-kit": "^3.0.0"
     },
     "scripts": {
         "discord": "nodemon ./week-2-2022"
     },
-    "name": "spookcord-2022",
+    "name": "shiro-spookcord",
     "github": "https://github.com/Suzzudev/SpookCord",
     "author": "Shiro/Suzzdev"
 }
